@@ -1,0 +1,6 @@
+#ignore semuanya
+/membantumu/*
+
+!membantumu/lib/
+!membantumu/assets/
+!membantumu/README.txt
