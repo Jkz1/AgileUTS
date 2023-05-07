@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget home(BuildContext context) {
     if (_page == "Dasar") {
       // return const Dasar();
-      return const Dasar();
+      return const Konversi();
     } else if (_page == "Konversi") {
       return const Konversi();
     } else {

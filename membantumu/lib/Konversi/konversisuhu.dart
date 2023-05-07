@@ -1,8 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:intl/intl.dart';
 
 class KonversiSuhu extends StatefulWidget {
   const KonversiSuhu({super.key});
@@ -129,11 +125,7 @@ class _KonversiSuhuState extends State<KonversiSuhu> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        if (itemSelectedUnitFrom == "Pilih Unit Sumber") {
-                          showNotif("Harap pilih unit sumber dahulu", context);
-                        } else if (itemSelectedUnitTo == "Pilih Unit Tujuan") {
-                          showNotif("Harap pilih unit tujuan dahulu", context);
-                        } else if (itemSelectedUnitFrom == itemSelectedUnitTo) {
+                        if (itemSelectedUnitFrom == itemSelectedUnitTo) {
                           showNotif(
                               "Unit Sumber dan Unit Tujuan tidak boleh sama",
                               context);
@@ -154,10 +146,7 @@ class _KonversiSuhuState extends State<KonversiSuhu> {
                                 double.parse(fromController.text),
                                 itemSelectedUnitFrom,
                                 itemSelectedUnitTo);
-
                             toController.text = unitToValue.toString();
-
-                            // setState(() {});
                           }
                         }
                       },

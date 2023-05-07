@@ -68,7 +68,7 @@ class _KonversiState extends State<Konversi> {
     switch (itemSelectedKonversi) {
       case 'Pilih Konversi':
         // return const Text("Silahkan Pilih Konversi");
-        return const KonversiSuhu();
+        return const KonversiMataUang();
       case 'Mata Uang':
         return const KonversiMataUang();
       case 'Suhu':

@@ -95,134 +95,153 @@ class _KonversiMataUangState extends State<KonversiMataUang> {
             ],
           ),
           const SizedBox(height: 16.0),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+              Widget>[
+            const Text('Dari:'),
+            const SizedBox(height: 8.0),
+            Row(
               children: <Widget>[
-                const Text('Dari:'),
-                const SizedBox(height: 8.0),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        controller: fromController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Jumlah',
-                        ),
-                        onChanged: (value) {
-                          setState(
-                              () {}); // Memanggil setState untuk memperbarui teks pada Row
-                        },
-                      ),
+                Flexible(
+                  child: TextField(
+                    controller: fromController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Jumlah',
                     ),
-                    const SizedBox(width: 8.0),
-                    DropdownButton<String>(
-                      value: fromCurrency,
-                      items: currencies?.keys
-                          .map<DropdownMenuItem<String>>((String key) {
-                        return DropdownMenuItem<String>(
-                          value: key,
-                          child: Text(key),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          fromCurrency = value!;
-                          getCurrencies();
-                        });
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            String tempCurrency = fromCurrency;
-                            fromCurrency = toCurrency;
-                            toCurrency = tempCurrency;
+                const SizedBox(width: 8.0),
+                DropdownButton<String>(
+                  value: fromCurrency,
+                  items: currencies?.keys
+                      .map<DropdownMenuItem<String>>((String key) {
+                    return DropdownMenuItem<String>(
+                      value: key,
+                      child: Text(key),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      fromCurrency = value!;
+                      getCurrencies();
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        String tempCurrency = fromCurrency;
+                        fromCurrency = toCurrency;
+                        toCurrency = tempCurrency;
 
-                            fromController.clear();
-                            toController.text = "-";
+                        fromController.clear();
+                        toController.text = "-";
 
-                            getCurrencies();
-                          });
-                        },
-                        child: const Text("<>"))
-                  ],
-                ),
-                const SizedBox(height: 16.0),
-                const Text('Ke:'),
-                const SizedBox(height: 8.0),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        controller: toController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey.shade300, width: 1.0),
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey.shade200,
-                          hintText: 'Jumlah',
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 16.0),
-                        ),
-                        enabled: false,
-                        textAlign: TextAlign.center,
+                        getCurrencies();
+                      });
+                    },
+                    child: const Text("<>"))
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            const Text('Ke:'),
+            const SizedBox(height: 8.0),
+            Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: toController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.shade300, width: 1.0),
                       ),
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      hintText: 'Jumlah',
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 16.0),
                     ),
-                    const SizedBox(width: 8.0),
-                    DropdownButton<String>(
-                      value: toCurrency,
-                      items: currencies?.keys
-                          .map<DropdownMenuItem<String>>((String key) {
-                        return DropdownMenuItem<String>(
-                          value: key,
-                          child: Text(key),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          toCurrency = value!;
-                          getCurrencies();
-                        });
-                      },
-                    ),
-                  ],
+                    enabled: false,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          double fromValue = double.parse(fromController.text);
-                          double toValue = fromValue *
-                              currencies![toCurrency]! /
-                              currencies![fromCurrency]!;
-                          toController.text = NumberFormat.currency(
-                            locale: 'id_ID',
-                            symbol: "$toCurrency ",
-                            decimalDigits: 2,
-                          ).format(toValue);
-                        });
-                      },
-                      child: const Text("Konversi"),
-                    )
-                  ],
+                const SizedBox(width: 8.0),
+                DropdownButton<String>(
+                  value: toCurrency,
+                  items: currencies?.keys
+                      .map<DropdownMenuItem<String>>((String key) {
+                    return DropdownMenuItem<String>(
+                      value: key,
+                      child: Text(key),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      toCurrency = value!;
+                      getCurrencies();
+                    });
+                  },
                 ),
-              ]),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (fromController.text.isEmpty) {
+                      showNotif("Jumlah nilai konversi harus diisi", context);
+                    } else {
+                      setState(() {
+                        double fromValue = double.parse(fromController.text);
+                        double toValue = fromValue *
+                            currencies![toCurrency]! /
+                            currencies![fromCurrency]!;
+                        toController.text = NumberFormat.currency(
+                          locale: 'id_ID',
+                          symbol: "$toCurrency ",
+                          decimalDigits: 2,
+                        ).format(toValue);
+                      });
+                    }
+                  },
+                  child: const Text("Konversi"),
+                )
+              ],
+            ),
+          ]),
         ],
       ),
+    );
+  }
+
+  void showNotif(String message, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Notifikasi"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
