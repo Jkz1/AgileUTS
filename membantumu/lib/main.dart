@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'Dasar/dasar_provider.dart';
 import 'home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => dasarProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
