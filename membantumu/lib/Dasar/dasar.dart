@@ -20,8 +20,6 @@ class _DasarState extends State<Dasar> {
       return const TextStyle(fontSize: 20, color: Colors.grey);
   }
 
-  bool status = true;
-
   List<String>symbol = ['x','-','+','/'];
 
   @override
@@ -42,18 +40,18 @@ class _DasarState extends State<Dasar> {
                 child: GestureDetector(
                   onTap: (){
                     setState(() {
-                      status = true;
+                      prov.setstatus = true;
                     });
                   },
-                  child: Text(prov.txt, style: status? boldstyle():fadestyle(),overflow: TextOverflow.visible,)),
+                  child: Text(prov.txt, style: prov.status? boldstyle():fadestyle(),overflow: TextOverflow.visible,)),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: prov.txt.isEmpty? null :(){
                   setState(() {
-                    status = false;
+                    prov.setstatus = false;
                   });
                 },
-                child: Text("= ${prov.hasil}", style: status? fadestyle():boldstyle(),))
+                child: Text("= ${prov.hasil}", style: prov.status? fadestyle():boldstyle(),))
             ]
           ),
           Column(
@@ -80,79 +78,31 @@ class _DasarState extends State<Dasar> {
                       }
                     },
                     icon: Icon(Icons.undo, size: 21,)),
-                  IconButton(
-                    onPressed: prov.fulloperation.isEmpty?null:
-                    symbol.contains(prov.fulloperation.last)?null:(){
-                      prov.settxt = prov.txt + " / ";
-                      prov.setfullop = prov.txt.split(" ");
-                    },
-                    icon: const Text(" / ", style: TextStyle(fontSize: 21))),
+                  OperationButton(operation: "/")
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "1";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("1", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "2";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("2", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "3";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("3", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: prov.fulloperation.isEmpty?null:
-                    symbol.contains(prov.fulloperation.last)?null:(){
-                      prov.settxt = prov.txt + " x ";
-                      prov.setfullop = prov.txt.split(" ");
-                    },
-                    icon: const Text(" x ", style: TextStyle(fontSize: 21))),
+                  NumberButton(number: "1"),
+                  NumberButton(number: "2"),
+                  NumberButton(number: "3"),
+                  OperationButton(operation: "x"),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "4";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("4", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "5";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("5", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "6";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("6", style: TextStyle(fontSize: 21))),
+                  NumberButton(number: "4"),
+                  NumberButton(number: "5"),
+                  NumberButton(number: "6"),
                   IconButton(
                     onPressed: (){
                       if(prov.fulloperation.isEmpty){
-                        prov.settxt = prov.txt + "-";
+                        prov.settxt = "${prov.txt}-";
                         prov.setfullop = ["0","-",""];
                       }else{
-                        prov.settxt = prov.txt + " - ";
+                        prov.settxt = "${prov.txt} - ";
                         prov.setfullop = prov.txt.split(" ");
                       }
                     },
@@ -162,64 +112,24 @@ class _DasarState extends State<Dasar> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "7";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("7", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "8";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("8", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "9";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("9", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: prov.fulloperation.isEmpty?null:
-                    symbol.contains(prov.fulloperation.last)?null:(){
-                      prov.settxt = prov.txt + " + ";
-                      prov.setfullop = prov.txt.split(" ");
-                    },
-                    icon: const Text(" + ", style: TextStyle(fontSize: 21))),
+                  NumberButton(number: "7"),
+                  NumberButton(number: "8"),
+                  NumberButton(number: "9"),
+                  OperationButton(operation: "+"),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  Comma(),
+                  NumberButton(number: "0"),
+                  Comma(),
                   IconButton(
                     onPressed: (){
-                      prov.settxt = prov.txt + ".";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text(",", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + "0";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text("0", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
-                      prov.settxt = prov.txt + ".";
-                      prov.setfullop = prov.txt.split(" ");
-                      prov.hitung();
-                    },
-                    icon: const Text(",", style: TextStyle(fontSize: 21))),
-                  IconButton(
-                    onPressed: (){
+                      prov.addhistory = "${prov.txt} = ${prov.hasil}";
+                      prov.seteqstatus = true;
                       setState(() {
-                        status = false;
+                        prov.setstatus = false;
                       });
                     },
                     icon: const Text(" = ", style: TextStyle(fontSize: 21))),
@@ -231,5 +141,70 @@ class _DasarState extends State<Dasar> {
         ],
       ),
     );
+  }
+}
+
+
+class NumberButton extends StatelessWidget {
+  String number = "";
+  NumberButton({super.key, required this.number});
+
+  @override
+  Widget build(BuildContext context) {
+    final prov = Provider.of<dasarProvider>(context);
+    return IconButton(
+      onPressed: (){
+        if(prov.equalstatus){
+          prov.settxt = "";
+          prov.sethasil = 0;
+          prov.seteqstatus = false;
+        }
+        prov.setstatus = true;
+        prov.settxt = prov.txt + number;
+        prov.setfullop = prov.txt.split(" ");
+        prov.hitung();
+      },
+      icon: Text(number, style: TextStyle(fontSize: 21)));
+  }
+}
+
+class OperationButton extends StatelessWidget {
+  String operation = "";
+  OperationButton({super.key, required this.operation});
+
+
+  List<String>symbol = ['x','-','+','/'];
+  @override
+  Widget build(BuildContext context) {
+    final prov = Provider.of<dasarProvider>(context);
+    return IconButton(
+      onPressed: prov.fulloperation.isEmpty?null:
+      symbol.contains(prov.fulloperation.last)?null:(){
+        prov.setstatus = true;
+        prov.settxt = "${prov.txt} ${operation} ";
+        prov.setfullop = prov.txt.split(" ");
+      },
+      icon: Text(" ${operation} ", style: TextStyle(fontSize: 21)));
+  }
+}
+
+class Comma extends StatelessWidget {
+  const Comma({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final prov = Provider.of<dasarProvider>(context);
+
+    return IconButton(
+      onPressed: prov.txt.isEmpty? null
+      : ["1","2","3","4","5","6","7","8","9","0"].contains(prov.txt[prov.txt.length-1])
+      ?(){
+        prov.setstatus = true;
+        prov.settxt = "${prov.txt}.";
+        prov.setfullop = prov.txt.split(" ");
+        prov.hitung();
+      }
+      : null,
+      icon: const Text(",", style: TextStyle(fontSize: 21)));
   }
 }

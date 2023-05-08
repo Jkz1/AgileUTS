@@ -4,10 +4,37 @@ class dasarProvider extends ChangeNotifier{
   String _txt = "";
   List<String> _fulloperation = [];
   double _hasil = 0;
+  bool _equalstatus = false;
+  bool _status = true;
+
+  List<String> _history =["12 + 3 = 2"];
 
   String get txt => _txt;
+  bool get status => _status;
+  bool get equalstatus => _equalstatus;
   double get hasil => _hasil;
+  List<String> get history => _history;
   List<String> get fulloperation => _fulloperation;
+
+  set seteqstatus(val){
+    _equalstatus = val;
+    notifyListeners();
+  }
+
+  set setstatus(val){
+    _status = val;
+    notifyListeners();
+  }
+
+  set sethistory(val){
+    _history = val;
+    notifyListeners();
+  }
+
+  set addhistory(val){
+    _history.add(val);
+    notifyListeners();
+  }
 
   set settxt(val){
     _txt = val;

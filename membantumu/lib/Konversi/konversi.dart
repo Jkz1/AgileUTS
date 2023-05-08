@@ -67,8 +67,7 @@ class _KonversiState extends State<Konversi> {
   Widget _buildSelectedScreen() {
     switch (itemSelectedKonversi) {
       case 'Pilih Konversi':
-        // return const Text("Silahkan Pilih Konversi");
-        return const KonversiMataUang();
+        return const Text("Silahkan Pilih Konversi");
       case 'Mata Uang':
         return const KonversiMataUang();
       case 'Suhu':
