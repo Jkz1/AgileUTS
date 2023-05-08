@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:membantumu/Konversi/konversimatauang.dart';
 import 'package:membantumu/Konversi/konversisuhu.dart';
+import 'package:membantumu/Konversi/konversi_sistemangka.dart';
 
 class Konversi extends StatefulWidget {
   const Konversi({super.key});
@@ -68,8 +69,11 @@ class _KonversiState extends State<Konversi> {
     switch (itemSelectedKonversi) {
       case 'Pilih Konversi':
         return const Text("Silahkan Pilih Konversi");
+      // return const KonversiSistemAngka();
       case 'Mata Uang':
         return const KonversiMataUang();
+      case 'Sistem Angka':
+        return const KonversiSistemAngka();
       case 'Suhu':
         return const KonversiSuhu();
       default:
