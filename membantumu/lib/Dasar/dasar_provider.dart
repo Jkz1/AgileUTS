@@ -7,7 +7,7 @@ class dasarProvider extends ChangeNotifier{
   bool _equalstatus = false;
   bool _status = true;
 
-  List<String> _history =["12 + 3 = 2"];
+  List<String> _history =[];
 
   String get txt => _txt;
   bool get status => _status;

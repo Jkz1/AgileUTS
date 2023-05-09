@@ -60,6 +60,29 @@ class _DasarState extends State<Dasar> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  IconButton(onPressed: (){
+                    showDialog(context: context, builder: (context){
+                      return AlertDialog(
+                        title: Text("History"),
+                        content: Container(
+                          decoration: BoxDecoration(border: Border.all(color: Colors.green.shade200, width: 3),
+                          color: Colors.grey.shade200),
+                          child: Column(
+                            children: prov.history.isEmpty? [Text("Empty, go do something")] : 
+                            prov.history.map((e) => Text(("=== ${e}"))).toList(),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text('Close'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    });
+                  }, icon: Icon(Icons.history, size: 21,)),
                   IconButton(
                     onPressed: prov.fulloperation.isEmpty? null :(){
                       if(prov.txt.length == 1){
